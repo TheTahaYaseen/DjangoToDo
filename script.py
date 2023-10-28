@@ -13,5 +13,5 @@ html_files = [
 ]
 
 for html_file in html_files:
-    with open(f"{html_file}.html") as file:
-        file.write()
+    with open(f"main/templates/main/{html_file}.html", "a") as file:
+        file.write("")
