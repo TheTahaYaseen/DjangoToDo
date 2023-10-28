@@ -1,3 +1,6 @@
+import os
+
+
 html_files = [
     "home_view",
     "registration_view",
@@ -13,5 +16,14 @@ html_files = [
 ]
 
 for html_file in html_files:
-    with open(f"main/templates/main/{html_file}.html", "a") as file:
-        file.write("")
+    os.system("cd ..")
+    with open(f"main/templates/main/{html_file}.html", "w") as file:
+        file.write(
+            """
+{% extends "layout.html" %}
+
+{% block main %}
+
+{% endblock main %}
+            """
+        )
