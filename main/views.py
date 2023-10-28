@@ -1,5 +1,7 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def home_view(request):
@@ -9,7 +11,25 @@ def home_view(request):
 
 def registration_view(request):
     # Allows User To Register
-    context = {}
+    
+    form = UserCreationForm()
+
+    error = ""
+
+    if request.method == "POST":        
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect("home")
+        
+        else:
+            error = "An Error Occured During Registration!"
+
+    context = {"form": form, "error": error}
     return render(request, "main/registration_view.html", context)
 
 def login_view(request):
@@ -55,4 +75,4 @@ def update_user_profile_view(request):
 def logout_user_profile_view(request):
     # Will Directly Logout And Redirect User
     context = {}
-    return render(request, "main/logout_user_profile_view.html", context)
+    return render(request, "main/logout_view.html", context)

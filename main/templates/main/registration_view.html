@@ -3,5 +3,21 @@
 
 {% block main %}
 
+<h3>Register</h3>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <h6>{{error}}</h6>
+
+    {% for field in form %}
+        <label for="{{field.id}}">{{field.label}}</label>
+        {{field}}
+    {% endfor %}
+
+    <button type="submit">Register</button>
+    
+</form>
+
 {% endblock main %}
             
