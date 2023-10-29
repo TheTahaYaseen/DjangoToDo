@@ -3,5 +3,22 @@
 
 {% block main %}
 
+<h3>Login</h3>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <h6>{{error}}</h6>
+
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" placeholder="e.g. @thetahayaseen">
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" placeholder="e.g. &bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+
+    <button type="submit">Login</button>
+    
+</form>
+
 {% endblock main %}
             

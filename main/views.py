@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 # Create your views here.
 def home_view(request):
@@ -34,7 +35,31 @@ def registration_view(request):
 
 def login_view(request):
     # Allows User To Login
-    context = {}
+    
+    error = "" 
+
+    if request.user.is_authenticated:
+        return redirect("home")
+    
+    if request.method == "POST":
+
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+    
+        try:
+            User.objects.get(username=username)
+        except User.DoesNotExist:
+            error = "User Does Not Exist"
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("home")
+        else:
+            error = "Username Or Password Is Incorrect!"
+
+    context = {"error": error}
     return render(request, "main/login_view.html", context)
 
 def todos_view(request):
