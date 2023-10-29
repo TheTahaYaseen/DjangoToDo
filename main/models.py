@@ -11,3 +11,6 @@ class Todo(models.Model):
     task_by = models.ForeignKey(User, related_name="task_by", on_delete=models.CASCADE)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return str(self.task)
