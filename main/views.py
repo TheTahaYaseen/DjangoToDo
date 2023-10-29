@@ -97,7 +97,7 @@ def update_user_profile_view(request):
     context = {}
     return render(request, "main/update_user_profile_view.html", context)
 
-def logout_user_profile_view(request):
+def logout_view(request):
     # Will Directly Logout And Redirect User
-    context = {}
-    return render(request, "main/logout_view.html", context)
+    logout(request)
+    return redirect("home")

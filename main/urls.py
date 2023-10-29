@@ -13,5 +13,5 @@ urlpatterns = [
     path("complete_todo/<str:primary_key>", views.complete_todo_view, name = "complete_todo"),
     path("user_profile/<str:primary_key>", views.user_profile_view, name = "user_profile"),
     path("update_user_profile/<str:primary_key>", views.update_user_profile_view, name = "update_user_profile"),
-    path("logout_user_profile/<str:primary_key>", views.logout_user_profile_view, name = "logout_user_profile")
+    path("logout", views.logout_view, name = "logout")
 ]
