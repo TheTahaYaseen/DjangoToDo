@@ -3,5 +3,25 @@
 
 {% block main %}
 
+<form method="POST">
+    {% csrf_token %}
+
+    <h6>{{error}}</h6>
+
+    <label for="task">task:</label>
+    <input required type="text" name="task" id="task" placeholder="e.g. Program Programs">
+
+    <label for="details">details:</label>
+    <input required type="text" name="details" id="details" placeholder="e.g. That Programs Programs">
+
+    <label for="deadline">deadline:</label>
+    <input type="datetime-local" name="deadline" id="deadline" placeholder="e.g. 22 December 2023">
+
+    <input hidden type="text" name="subtask_of" id="subtask_of" value="{{subtask_of}}">
+
+    <button type="submit">Create</button>
+
+</form>
+
 {% endblock main %}
             

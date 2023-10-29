@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+from .models import Todo
+
 # Create your views here.
 def home_view(request):
     # Home View Would Contain Recent Todos Of People (Globally)
@@ -72,7 +74,21 @@ def todos_view(request):
 @login_required(login_url='/login')
 def create_todo_view(request):
     # Will Contain All Attributes Inputs
-    context = {}
+    
+    subtask_of = request.GET.get("subtask_of") if request.GET.get("subtask_of") else None
+
+    if request.method == "POST":
+
+        Todo.objects.create(
+            task = request.POST.get("task"),
+            details = request.POST.get("details"),
+            deadline = request.POST.get("deadline") if request.POST.get("deadline") else None,
+            subtask_of = request.POST.get("subtask_of") if request.POST.get("subtask_of") != "None"  else None,
+            task_by = request.user,
+            media = None
+        )
+
+    context = {"subtask_of": subtask_of}
     return render(request, "main/create_todo_view.html", context)
 
 @login_required(login_url='/login')
