@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -62,26 +63,31 @@ def login_view(request):
     context = {"error": error}
     return render(request, "main/login_view.html", context)
 
+@login_required(login_url='/login')
 def todos_view(request):
     # Shows The User's Todos With The Actions
     context = {}
     return render(request, "main/todos_view.html", context)
 
+@login_required(login_url='/login')
 def create_todo_view(request):
     # Will Contain All Attributes Inputs
     context = {}
     return render(request, "main/create_todo_view.html", context)
 
+@login_required(login_url='/login')
 def update_todo_view(request):
     # Will Contain All Attributes Inputs
     context = {}
     return render(request, "main/update_todo_view.html", context)
 
+@login_required(login_url='/login')
 def delete_todo_view(request):
     # Will Delete Todo With A Confirmation Check
     context = {}
     return render(request, "main/delete_todo_view.html", context)
 
+@login_required(login_url='/login')
 def complete_todo_view(request):
     # Will Require User To Submit Atleast One Piece Of Media According To Task
     context = {}
@@ -92,11 +98,13 @@ def user_profile_view(request):
     context = {}
     return render(request, "main/user_profile_view.html", context)
 
+@login_required(login_url='/login')
 def update_user_profile_view(request):
     # Will Display Form To Update Username, Email Or Password
     context = {}
     return render(request, "main/update_user_profile_view.html", context)
 
+@login_required(login_url='/login')
 def logout_view(request):
     # Will Directly Logout And Redirect User
     logout(request)
